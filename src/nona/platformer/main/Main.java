@@ -29,10 +29,10 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	public static final Dimension SIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
+	public static final int FPS = 60;
 	
 	// Main loop
 	private Thread thread;
-	private int fps = 60;
 	
 	// Drawing
 	private static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
@@ -71,7 +71,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	public void run() {
 		long lastTime = System.nanoTime();
 		long now;
-		double nsPerUpdate = 1000000000 / fps;
+		double nsPerUpdate = 1000000000 / FPS;
 		double delta = 0;
 		long lastTimeMillis = System.currentTimeMillis();		
 		int updates = 0;
