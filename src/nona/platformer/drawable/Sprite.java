@@ -12,13 +12,11 @@ public class Sprite {
 
 	private int[] pixels;
 	private int width;
-	private Bitmap bitmap;
 
 	// Constructor: Initializes from pixel array
-	public Sprite(int[] pixels, int width, Bitmap bitmap) {
+	public Sprite(int[] pixels, int width) {
 		this.pixels = pixels;
 		this.width = width;
-		this.bitmap = bitmap;
 	}
 	
 	// Constructor: Initializes from BufferedImage
@@ -26,7 +24,7 @@ public class Sprite {
 	}
 		
 	// Draws Sprite on given Bitmap at given coordinates
-	public void render(int x, int y) {
+	public void render(int x, int y, Bitmap bitmap) {
 		for(int yy = y; yy < y + pixels.length / width; yy++) {
 			if(yy > bitmap.getMaxY()) continue;
 			for(int xx = x; xx < x + width; xx++) {
