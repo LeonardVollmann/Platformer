@@ -43,10 +43,8 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	// Frame
 	private JFrame frame;
 	
-	// Temp
- 	private int counter = 0;
- 	private Bitmap map;
- 	private Sprite sprite;
+	// Game
+	private Game game = new Game();
 	
 	public Main() {
 		super();
@@ -63,15 +61,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.pack();
-		frame.setVisible(true);
-		
-		// Temp
-		map = new Bitmap(new int[625], 25);
-		sprite = new Sprite(new int[] {128, 128, 128, 128, 128,
-									   128, 128, 128, 128, 128,
-									   128, 128, 128, 128, 128,
-									   128, 128, 128, 128, 128,
-									   128, 128, 128, 128, 128}, 5, map);								
+		frame.setVisible(true);				
 		
 		// Initialize thread
 		thread = new Thread(this);
@@ -115,7 +105,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	
 	// Updates the game
 	public void update() {
-		counter++;
+		game.update();
 	}
 	
 	// Handles all the rendering
@@ -126,8 +116,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 			return;
 		}
 		
-		sprite.render(5, 5);
-		map.render(100, -5, raster);
+		game.render();
 		
 		// Draw image
 		g = (Graphics2D) bs.getDrawGraphics();
