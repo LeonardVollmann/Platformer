@@ -1,5 +1,7 @@
 package nona.platformer.drawable;
 
+import java.awt.Color;
+
 import nona.platformer.main.Main;
 
 /*
@@ -19,13 +21,19 @@ public class Bitmap {
 		this.width = width;
 	}
 	
-	public void render(int x, int y, int[] pixelsToDrawTo) {
+	public void render(int x, int y, int[] pixelsToDrawTo, int widthImageToDrawTo) {
 		for(int yy = y; yy < y + pixels.length / width; yy++) {
-			if(yy > Main.HEIGHT || yy < 0) continue;
+			if(yy >= pixelsToDrawTo.length / widthImageToDrawTo || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
 			for(int xx = x; xx < x + width; xx++) {
-				if(xx > Main.WIDTH || xx < 0) continue;
-				Main.getRaster()[xx + yy * Main.WIDTH] = pixels[(xx - x) + (yy - y) * width];
+				if(xx >= widthImageToDrawTo || xx < 0) continue; // Prevents Arrayindexoutofboundsexceptions
+				pixelsToDrawTo[xx + yy * widthImageToDrawTo] = pixels[(xx - x) + (yy - y) * width];
 			}
+		}
+	}
+	
+	public void setColor(Color c) {
+		for(int i = 0; i < pixels.length; i++) {
+			pixels[i] = c.getRGB();
 		}
 	}
 	
@@ -37,7 +45,7 @@ public class Bitmap {
 		return width;
 	}
 	
-	public int getMaxY() {
+	public int getHeight() {
 		return pixels.length / width;
 	}
 	

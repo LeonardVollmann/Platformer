@@ -2,6 +2,7 @@ package nona.platformer.main;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -11,9 +12,6 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
-
-import nona.platformer.drawable.Bitmap;
-import nona.platformer.drawable.Sprite;
 
 /*
  * @Author Leonard Vollmann
@@ -30,6 +28,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	public static final int SCALE = 2;
 	public static final Dimension SIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	public static final int FPS = 60;
+	public static final int TILESIZE = 32;
 	
 	// Main loop
 	private Thread thread;
@@ -96,7 +95,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 			
 			if (System.currentTimeMillis() - lastTimeMillis >= 1000) {
 				lastTimeMillis += 1000;
-				System.out.println(updates + " updates, " + frames + " frames");
+				frame.setTitle("Platformer | UPS [ " + updates + " ] FPS [ " + frames + " ]");
 				updates = 0;
 				frames = 0;
 			}
