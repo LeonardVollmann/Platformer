@@ -1,5 +1,7 @@
 package nona.platformer.tile;
 
+import java.awt.image.BufferedImage;
+
 import nona.platformer.drawable.Sprite;
 
 /*
@@ -12,8 +14,8 @@ public class Tile {
 	
 	private Sprite sprite;
 		
-	public Tile(Sprite sprite) {
-		this.sprite = sprite;
+	public Tile(BufferedImage image) {
+		this.sprite = new Sprite(image);
 	}
 	
 	public void update() {

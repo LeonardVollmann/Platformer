@@ -9,84 +9,69 @@ import java.awt.event.KeyEvent;
  */
 
 public class Keys {
+
+	public static final int NUM_KEYS = 5;
 	
-	// Booleans that indicate whether or not the key is pressed
-	public static boolean up;
-	public static boolean down;
-	public static boolean left;
-	public static boolean right;
-	public static boolean w;
-	public static boolean a;
-	public static boolean s;
-	public static boolean d;
-	public static boolean space;
+	public static boolean[] keyStates = new boolean[NUM_KEYS];
+	public static boolean[] previousKeyStates = new boolean[NUM_KEYS];
 	
-	// Sets boolean to true if the corresponding key is pressed
-	public static void keyPressed(KeyEvent key) {
-		int k = key.getKeyCode();
-		switch (k) {
-		case KeyEvent.VK_UP:
-			up = true;
-			return;
-		case KeyEvent.VK_DOWN:
-			down = true;
-			return;
-		case KeyEvent.VK_LEFT:
-			left = true;
-			return;
-		case KeyEvent.VK_RIGHT:
-			right = true;
-			return;
+	public static final int W = 0;
+	public static final int A = 1;
+	public static final int S = 2;
+	public static final int D = 3;
+	public static final int SPACE = 4;
+	
+	public static void keyPressed(int key) {
+		previousKeyStates = keyStates;
+		
+		switch(key) {
 		case KeyEvent.VK_W:
-			w = true;
-			return;
+			keyStates[W] = true;
+			break;
 		case KeyEvent.VK_A:
-			a = true;
-			return;
+			keyStates[A] = true;
+			break;
 		case KeyEvent.VK_S:
-			s = true;
-			return;
+			keyStates[S] = true;
+			break;
 		case KeyEvent.VK_D:
-			d = true;
-			return;
+			keyStates[D] = true;
+			break;
 		case KeyEvent.VK_SPACE:
-			space = true;
-			return;
+			keyStates[SPACE] = true;
+			break;
 		}
 	}
 	
-	// Sets boolean to false if the corresponding key is released
-	public static void keyReleased(KeyEvent key) {
-		int k = key.getKeyCode();
-		switch (k) {
-		case KeyEvent.VK_UP:
-			up = false;
-			return;
-		case KeyEvent.VK_DOWN:
-			down = false;
-			return;
-		case KeyEvent.VK_LEFT:
-			left = false;
-			return;
-		case KeyEvent.VK_RIGHT:
-			right = false;
-			return;
+	public static void keyReleased(int key) {
+		previousKeyStates = keyStates;
+				
+		switch(key) {
 		case KeyEvent.VK_W:
-			w = false;
-			return;
+			keyStates[W] = false;
+			break;
 		case KeyEvent.VK_A:
-			a = false;
-			return;
+			keyStates[A] = false;
+			break;
 		case KeyEvent.VK_S:
-			s = false;
-			return;
+			keyStates[S] = false;
+			break;
 		case KeyEvent.VK_D:
-			d = false;
-			return;
+			keyStates[D] = false;
+			break;
 		case KeyEvent.VK_SPACE:
-			space = false;
-			return;
+			keyStates[SPACE] = false;
+			break;
 		}
+	}
+	
+	public static boolean isKeyPressed(int index) {
+		return keyStates[index];
+	}
+	
+	public static boolean isKeyHit(int index) {
+		if(keyStates[index] && !previousKeyStates[index]) return true;
+		else return false;
 	}
 	
 }

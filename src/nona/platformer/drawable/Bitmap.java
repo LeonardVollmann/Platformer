@@ -2,8 +2,6 @@ package nona.platformer.drawable;
 
 import java.awt.Color;
 
-import nona.platformer.main.Main;
-
 /*
  * @Author Leonard Vollmann
  * 
@@ -21,12 +19,12 @@ public class Bitmap {
 		this.width = width;
 	}
 	
-	public void render(int x, int y, int[] pixelsToDrawTo, int widthImageToDrawTo) {
+	public void render(int x, int y, int[] targetPixels, int targetPixelsWidth) {
 		for(int yy = y; yy < y + pixels.length / width; yy++) {
-			if(yy >= pixelsToDrawTo.length / widthImageToDrawTo || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
+			if(yy >= targetPixels.length / targetPixelsWidth || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
 			for(int xx = x; xx < x + width; xx++) {
-				if(xx >= widthImageToDrawTo || xx < 0) continue; // Prevents Arrayindexoutofboundsexceptions
-				pixelsToDrawTo[xx + yy * widthImageToDrawTo] = pixels[(xx - x) + (yy - y) * width];
+				if(xx >= targetPixelsWidth || xx < 0) continue; // Prevents Arrayindexoutofboundsexceptions
+				targetPixels[xx + yy * targetPixelsWidth] = pixels[(xx - x) + (yy - y) * width];
 			}
 		}
 	}

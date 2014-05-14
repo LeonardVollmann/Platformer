@@ -23,12 +23,12 @@ import javax.swing.JFrame;
 public class Main extends Canvas implements Runnable, KeyListener {
 	
 	// Constants
-	public static final int WIDTH = 320;
+	public static final int WIDTH = 360;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
 	public static final Dimension SIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	public static final int FPS = 60;
-	public static final int TILESIZE = 32;
+	public static final int TILESIZE = 16;
 	
 	// Main loop
 	private Thread thread;
@@ -48,6 +48,12 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	public Main() {
 		super();
 				
+		setFocusable(true);
+		requestFocus();
+		
+		// Add KeyListener
+		addKeyListener(this);
+		
 		// Set size
 		setPreferredSize(SIZE);
 		setMaximumSize(SIZE);
@@ -59,6 +65,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		frame.setResizable(false);
 		frame.add(this, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.requestFocus();
 		frame.pack();
 		frame.setVisible(true);				
 		
@@ -75,6 +82,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		long lastTimeMillis = System.currentTimeMillis();		
 		int updates = 0;
 		int frames = 0;
+		boolean shouldrender = false;
 		
 		// Main loop
 		while (true) {
@@ -86,10 +94,14 @@ public class Main extends Canvas implements Runnable, KeyListener {
 				delta--;
 				update();
 				updates++;
+				shouldrender = true;
 			}
 			
-			render();
-			frames++;
+			if(shouldrender) {
+				render();
+				frames++;
+				shouldrender = false;
+			}
 			
 			lastTime = now;
 			
@@ -130,15 +142,20 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	}
 	
 	public void keyPressed(KeyEvent key) {
-		Keys.keyPressed(key);
+		Keys.keyPressed(key.getKeyCode());
 	}
 	
 	public void keyReleased(KeyEvent key) {
-		Keys.keyReleased(key);
+		Keys.keyReleased(key.getKeyCode());
 	}
 	
 	public static int[] getRaster() {
 		return raster;
+	}
+	
+	// Used to find out wether or not a function is being called
+	public static void debugMessage() {
+		System.out.println("Debug message");
 	}
 	
 	public static void main(String[] args) {
