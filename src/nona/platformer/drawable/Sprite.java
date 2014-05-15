@@ -11,8 +11,8 @@ import java.util.Random;
 
 public class Sprite {
 	
-	private int[] pixels;
-	private int width;
+	protected int[] pixels;
+	protected int width;
 
 	// Constructor: Initializes from pixel array
 	public Sprite(int[] pixels, int width) {
