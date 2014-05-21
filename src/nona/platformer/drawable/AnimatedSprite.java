@@ -15,11 +15,11 @@ public class AnimatedSprite extends Sprite {
 	
 	private int counter = 0;
 	
-	private int interval;
+	private float interval;
 	
 	private int currentIndex = 0;
 		
-	public AnimatedSprite(int[] pixels, int width, int height, float inteval) {
+	public AnimatedSprite(int[] pixels, int width, int height, float interval) {
 		super(pixels, width);
 		
 		this.interval = interval;

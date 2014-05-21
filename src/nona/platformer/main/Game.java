@@ -1,7 +1,6 @@
 package nona.platformer.main;
 
 import nona.platformer.drawable.Bitmap;
-import nona.platformer.tile.Tile;
 import nona.platformer.tile.Tilemap;
 
 /*
@@ -18,32 +17,20 @@ public class Game {
 	// Temp
 	private Tilemap tilemap;
 
-	public Game() {
+	public Game() {		
 		screen = new Bitmap(new int[360 * 240], 360);
 
-		tilemap = new Tilemap();
-
-		int tileMapWidth = 25;
-		int tileMapHeight = 25;
-
-		Tile tile = new Tile(ContentLoader.loadImage("/testTile.png"));
-		Tile[][] tiles = new Tile[tileMapHeight][tileMapWidth];
-		for(int i = 0; i < tileMapHeight; i++) {
-			for(int j = 0; j < tileMapWidth; j++) {
-				tiles[i][j] = tile;
-			}
-		}
-		tilemap.setMap(tiles);
+		tilemap = Content.Map;
 	}
 
 	// Updates the game
 	public void update() {
 		tilemap.update();
 		
-		if(Keys.isKeyPressed(Keys.W)) tilemap.move(0, 1);
-		if(Keys.isKeyPressed(Keys.A)) tilemap.move(1, 0);
-		if(Keys.isKeyPressed(Keys.S)) tilemap.move(0, -1);
-		if(Keys.isKeyPressed(Keys.D)) tilemap.move(-1, 0);
+		if(Keys.isKeyPressed(Keys.W)) tilemap.setPosition(0, 1);
+		if(Keys.isKeyPressed(Keys.A)) tilemap.setPosition(1, 0);
+		if(Keys.isKeyPressed(Keys.S)) tilemap.setPosition(0, -1);
+		if(Keys.isKeyPressed(Keys.D)) tilemap.setPosition(-1, 0);
 	}
 
 	// Renders the game

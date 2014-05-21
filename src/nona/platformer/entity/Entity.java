@@ -28,7 +28,7 @@ public class Entity {
 	}
 	
 	public void update() {
-		
+		sprite.update();
 	}
 	
 	public void render(Bitmap target) {

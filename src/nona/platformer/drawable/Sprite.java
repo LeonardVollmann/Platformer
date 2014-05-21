@@ -1,7 +1,6 @@
 package nona.platformer.drawable;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 /*
  * @Author Leonard Vollmann
@@ -31,9 +30,12 @@ public class Sprite {
 		this.width = width;
 		this.pixels = new int[width * height];
 	
-		for(int p : pixels) p = color;
+		for(@SuppressWarnings("unused") int p : pixels) p = color;
 	}
 		
+	public void update() {
+	}
+
 	// Draws Sprite on given Bitmap at given coordinates
 	public void render(int x, int y, Bitmap bitmap) {
 		int count = 0;
