@@ -2,7 +2,6 @@ package nona.platformer.main;
 
 import java.awt.BorderLayout;
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
@@ -151,11 +150,6 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	
 	public static int[] getRaster() {
 		return raster;
-	}
-	
-	// Used to find out wether or not a function is being called
-	public static void debugMessage() {
-		System.out.println("Debug message");
 	}
 	
 	public static void main(String[] args) {

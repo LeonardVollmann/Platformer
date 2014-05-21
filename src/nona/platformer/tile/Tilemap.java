@@ -1,6 +1,7 @@
 package nona.platformer.tile;
 
 import nona.platformer.drawable.Bitmap;
+import nona.platformer.main.ContentLoader;
 import nona.platformer.main.Main;
 
 /*
@@ -11,9 +12,15 @@ import nona.platformer.main.Main;
 
 public class Tilemap {
 
+	// Tile IDs
+	public static final int TILE_AIR = 0x000000;
+	
 	private Bitmap bitmap;
 	
+	private double tween;
+	
 	private Tile[][] tiles;
+	private int[][] map;
 
 	private int xOffset = 0;
 	private int yOffset = 0;
@@ -24,8 +31,12 @@ public class Tilemap {
 	public Tilemap() {
 	}
 	
-	public Tilemap(Tile[][] tiles) {
-		setMap(tiles);
+	public Tilemap(String path) {
+		setMap(path);
+	}
+	
+	public Tilemap(int[][] map) {
+		setMap(map);
 	}
 	
 	// Updates the Tilemap
@@ -52,9 +63,22 @@ public class Tilemap {
 	}
 	
 	// Note: only render or update a tilemap if either this function or the constructor taking in the parameter Tile[][] tiles have been called
-	public void setMap(Tile[][] tiles) {
-		this.tiles = tiles;
+	public void setMap(String path) {
+		this.map = ContentLoader.loadTilemap(path);
 		
+		this.tiles = ContentLoader.convertMapToTileArray(map);
+		
+		this.width = tiles[0].length * Main.TILESIZE;
+		this.height = tiles.length * Main.TILESIZE;
+
+		this.bitmap = new Bitmap(new int[tiles.length * tiles[0].length * Main.TILESIZE * Main.TILESIZE], tiles[0].length * Main.TILESIZE);
+	}
+	
+	public void setMap(int[][] map) {
+		this.map = map;
+		
+		this.tiles = ContentLoader.convertMapToTileArray(map);
+				
 		this.width = tiles[0].length * Main.TILESIZE;
 		this.height = tiles.length * Main.TILESIZE;
 
@@ -68,14 +92,10 @@ public class Tilemap {
 		else if(yOffset < -height + Main.HEIGHT) yOffset = -height + Main.HEIGHT;
 	}
 	
-	public void setPosition(int xOffset, int yOffset) {
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
+	public void setPosition(int x, int y) {	
+//		this.xOffset += ((this.xOffset - x) / 2) * tween; 
+//		this.yOffset += ((this.yOffset - y) / 2) * tween;
 		
-		fixBounds();
-	}
-	
-	public void move(int x, int y) {
 		this.xOffset += x;
 		this.yOffset += y;
 		
