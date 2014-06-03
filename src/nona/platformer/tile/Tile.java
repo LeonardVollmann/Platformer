@@ -1,46 +1,50 @@
 package nona.platformer.tile;
 
-import java.awt.image.BufferedImage;
-
-import nona.platformer.drawable.Sprite;
-import nona.platformer.main.Content;
+import nona.platformer.graphics.sprite.Sprite;
 
 /*
  * @Author Leonard Vollmann
  * 
- * It's just a tile
+ * Superclass of all tiles
  */
 
-public class Tile {
+public abstract class Tile {
 	
-	// Tile types
+	// Tile type constants
 	public static final int TILE_AIR = 0;
-	public static final int TILE_SOLID = 1;
+	public static final int TILE_FULLCOL = 1;
 	public static final int TILE_VISUAL = 2;
 	
-	private Sprite sprite;
+	// Tile-precise coordinates of the Tile on the Tilemap
+	protected int x;
+	protected int y;
 	
-	public Tile(int[] pixels, int width) {
-		this.sprite = new Sprite(pixels, width);
-	}
+	// The image
+	protected Sprite sprite;
 	
-	public Tile(BufferedImage image) {
-		this.sprite = new Sprite(image);
-	}
-	
+	// Updates the sprite
 	public void update() {
-		
+		sprite.update();
 	}
 	
 	public void render(int x, int y, Tilemap tilemap) {
 		sprite.render(x, y, tilemap.getBitmap());
 	}
 	
-	public static Tile getInstance(int type) {
-		if(type == TILE_AIR) return Content.Tile_Air;
-		else if(type == TILE_SOLID) return Content.Tile_Solid;
-		else if(type == TILE_VISUAL) return Content.Tile_Visual;
-		else return null;
+	// Sets x and y
+	public Tile setPosition(int x, int y) {
+		this.x = x;
+		this.y = y;
+		
+		return this;
+	}
+
+	// Returns type of this
+	public int getType() {
+		if(this instanceof AirTile) return TILE_AIR;
+		else if(this instanceof FullCollisionTile) return TILE_FULLCOL;
+		else if(this instanceof VisualTile) return TILE_VISUAL;
+		else return TILE_AIR;
 	}
 	
 }

@@ -1,6 +1,5 @@
-package nona.platformer.drawable;
+package nona.platformer.graphics;
 
-import java.awt.Color;
 
 /*
  * @Author Leonard Vollmann
@@ -19,6 +18,7 @@ public class Bitmap {
 		this.width = width;
 	}
 	
+	// Renders the Bitmap to a 1D-Array of pixels
 	public void render(int x, int y, int[] targetPixels, int targetPixelsWidth) {
 		for(int yy = y; yy < y + pixels.length / width; yy++) {
 			if(yy >= targetPixels.length / targetPixelsWidth || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
@@ -29,12 +29,14 @@ public class Bitmap {
 		}
 	}
 	
-	public void setColor(Color c) {
+	// Sets entire bitmap to one color
+	public void setColor(int c) {
 		for(int i = 0; i < pixels.length; i++) {
-			pixels[i] = c.getRGB();
+			pixels[i] = c;
 		}
 	}
 	
+	// Returns pixels for Bitmaps to be drawn onto other Bitmaps
 	public int[] getPixels() {
 		return pixels;
 	}

@@ -1,6 +1,8 @@
-package nona.platformer.drawable;
+package nona.platformer.graphics.sprite;
 
 import java.awt.image.BufferedImage;
+
+import nona.platformer.graphics.Bitmap;
 
 /*
  * @Author Leonard Vollmann
@@ -30,9 +32,9 @@ public class Sprite {
 		this.width = width;
 		this.pixels = new int[width * height];
 	
-		for(@SuppressWarnings("unused") int p : pixels) p = color;
+		for(int i = 0; i < pixels.length; i++) pixels[i] = color;
 	}
-		
+	
 	public void update() {
 	}
 
@@ -44,7 +46,8 @@ public class Sprite {
 			if(yy >= bitmap.getHeight() || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
 			for(int xx = x; xx < x + width; xx++) {
 				if(xx >= bitmap.getWidth() || xx < 0) continue; // Prevents Arrayindexoutofboundsexceptions
-				bitmap.getPixels()[xx + yy * bitmap.getWidth()] = pixels[count];
+				if(pixels[count] != 0xffff00ff)	//0xffff00ff is not rendered
+					bitmap.getPixels()[xx + yy * bitmap.getWidth()] = pixels[count]; // Renders one pixel
 				count++;
 			}
 		}

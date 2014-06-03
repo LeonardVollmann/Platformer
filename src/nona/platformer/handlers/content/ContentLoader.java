@@ -1,7 +1,6 @@
-package nona.platformer.main;
+package nona.platformer.handlers.content;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -9,6 +8,8 @@ import java.io.ObjectInputStream;
 
 import javax.imageio.ImageIO;
 
+import nona.platformer.graphics.sprite.Sprite;
+import nona.platformer.main.Main;
 import nona.platformer.tile.Tile;
 
 public class ContentLoader {
@@ -26,14 +27,14 @@ public class ContentLoader {
 	}
 	
 	// Returns an array of tiles that are loaded from an image
-	public static Tile[][] loadTileSet(String path) {
+	public static Sprite[][] loadTileSet(String path) {
 		BufferedImage image = loadImage(path);
-		Tile[][] tiles = new Tile[image.getHeight() / Main.TILESIZE][image.getWidth() / Main.TILESIZE];
+		Sprite[][] tiles = new Sprite[image.getHeight() / Main.TILESIZE][image.getWidth() / Main.TILESIZE];
 		
 		// Splits the image
 		for(int y = 0; y < image.getHeight() / Main.TILESIZE; y++) {
 			for(int x = 0; x < image.getWidth() / Main.TILESIZE; x++) {
-				tiles[y][x] = new Tile(image.getSubimage(x * Main.TILESIZE, y * Main.TILESIZE, Main.TILESIZE, Main.TILESIZE));
+				tiles[y][x] = new Sprite(image.getSubimage(x * Main.TILESIZE, y * Main.TILESIZE, Main.TILESIZE, Main.TILESIZE));
 			}
 		}
 		
@@ -43,8 +44,7 @@ public class ContentLoader {
 	@SuppressWarnings("deprecation")
 	public static int[][] loadTilemap(String path) {
 		try {
-			File file = new File(path);
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
 			
 			int width = Integer.parseInt(in.readLine());
 			int height = Integer.parseInt(in.readLine());
@@ -78,7 +78,9 @@ public class ContentLoader {
 		
 		for(int y = 0; y < tiles.length; y++) {
 			for(int x = 0; x < tiles[0].length; x++) {
-				tiles[y][x] = Tile.getInstance(map[y][x]);
+				if(map[y][x] == Tile.TILE_AIR) tiles[y][x] = Content.Tile_Air.setPosition(x + 1, y + 1);
+				else if(map[y][x] == Tile.TILE_FULLCOL) tiles[y][x] = Content.Tile_Solid.setPosition(x + 1, y + 1);
+				else if(map[y][x] == Tile.TILE_VISUAL) tiles[y][x] = Content.Tile_Visual.setPosition(x + 1, y + 1);
 			}
 		}
 		

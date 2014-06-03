@@ -1,4 +1,4 @@
-package nona.platformer.main;
+package nona.platformer.handlers;
 
 import java.awt.event.KeyEvent;
 
@@ -13,7 +13,6 @@ public class Keys {
 	public static final int NUM_KEYS = 5;
 	
 	public static boolean[] keyStates = new boolean[NUM_KEYS];
-	public static boolean[] previousKeyStates = new boolean[NUM_KEYS];
 	
 	public static final int W = 0;
 	public static final int A = 1;
@@ -21,9 +20,7 @@ public class Keys {
 	public static final int D = 3;
 	public static final int SPACE = 4;
 	
-	public static void keyPressed(int key) {
-		previousKeyStates = keyStates;
-		
+	public static void keyPressed(int key) {	
 		switch(key) {
 		case KeyEvent.VK_W:
 			keyStates[W] = true;
@@ -43,9 +40,7 @@ public class Keys {
 		}
 	}
 	
-	public static void keyReleased(int key) {
-		previousKeyStates = keyStates;
-				
+	public static void keyReleased(int key) {						
 		switch(key) {
 		case KeyEvent.VK_W:
 			keyStates[W] = false;
@@ -70,8 +65,10 @@ public class Keys {
 	}
 	
 	public static boolean isKeyHit(int index) {
-		if(keyStates[index] && !previousKeyStates[index]) return true;
-		else return false;
+		if(keyStates[index]) {
+			keyStates[index] = false;
+			return true;
+		} else return false;
 	}
 	
 }

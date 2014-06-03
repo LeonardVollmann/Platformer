@@ -12,6 +12,8 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import nona.platformer.handlers.Keys;
+
 /*
  * @Author Leonard Vollmann
  * 
@@ -24,9 +26,9 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	// Constants
 	public static final int WIDTH = 360;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	public static final Dimension SIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
-	public static final int FPS = 60;
+	public static final int FPS = 30;
 	public static final int TILESIZE = 16;
 	
 	// Main loop
@@ -81,7 +83,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		long lastTimeMillis = System.currentTimeMillis();		
 		int updates = 0;
 		int frames = 0;
-		boolean shouldrender = false;
+//		boolean shouldrender = false;
 		
 		// Main loop
 		while (true) {
@@ -93,14 +95,14 @@ public class Main extends Canvas implements Runnable, KeyListener {
 				delta--;
 				update();
 				updates++;
-				shouldrender = true;
+//				shouldrender = true;
 			}
 			
-			if(shouldrender) {
+//			if(shouldrender) {
 				render();
 				frames++;
-				shouldrender = false;
-			}
+//				shouldrender = false;
+//			}
 			
 			lastTime = now;
 			
@@ -126,13 +128,16 @@ public class Main extends Canvas implements Runnable, KeyListener {
 			return;
 		}
 		
-		game.render();
+		clearScreen();
+						
+		//Render Game
+		game.render(raster);
 		
 		// Draw image
 		g = (Graphics2D) bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
-		
+				
 		// Swap buffers
 		bs.show();
 	}
@@ -148,8 +153,10 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		Keys.keyReleased(key.getKeyCode());
 	}
 	
-	public static int[] getRaster() {
-		return raster;
+	private void clearScreen() {
+		for(int i = 0; i < raster.length; i++) {
+			raster[i] = 0;
+		}
 	}
 	
 	public static void main(String[] args) {
