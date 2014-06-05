@@ -25,17 +25,17 @@ public class Player extends Character {
 		super.update();
 		
 		handleKeys();
-	
+		
 		tilemap.setPosition(Main.WIDTH / 2 - xscreen, Main.HEIGHT / 2 - yscreen);
 	}
 	
 	// Handles input
 	public void handleKeys() {
-		if(Keys.isKeyPressed(Keys.A)) xvel = -2;
-		else if(Keys.isKeyPressed(Keys.D)) xvel = 2;
+		if(Keys.isKeyPressed(Keys.A) || Keys.isKeyPressed(Keys.LEFT)) xvel = -2;
+		else if(Keys.isKeyPressed(Keys.D) || Keys.isKeyPressed(Keys.RIGHT)) xvel = 2;
 		else xvel = 0;
 
-		if(Keys.isKeyHit(Keys.W)) jump();
+		if(Keys.isKeyHit(Keys.W) || Keys.isKeyHit(Keys.UP)) jump();
 	
 		if(Keys.isKeyHit(Keys.SPACE)) {
 			System.out.println("---------------------------");

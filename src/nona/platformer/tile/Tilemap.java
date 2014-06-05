@@ -41,7 +41,7 @@ public class Tilemap {
 	public Tilemap(int[][] map) {
 		setMap(map);
 		
-		tween = 0.2f;
+		tween = 1f;
 	}
 	
 	// Updates the Tilemap
