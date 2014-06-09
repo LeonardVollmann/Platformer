@@ -52,5 +52,10 @@ public class Sprite {
 			}
 		}
 	}
+	
+	// Returns this with a horizontally flipped image
+//	public Sprite getFlipped() {
+//		return null;
+//	}
 
 }

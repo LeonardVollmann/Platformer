@@ -28,7 +28,7 @@ public class Game {
 
 		tilemap = Content.Map;
 		
-		player = new Player(Main.TILESIZE, Main.TILESIZE * 4, Main.TILESIZE, Main.TILESIZE, tilemap, Content.Sprite_Player);
+		player = new Player(Main.TILESIZE, Main.TILESIZE * 4, Main.TILESIZE, Main.TILESIZE, tilemap);
 	}
 
 	// Updates the game

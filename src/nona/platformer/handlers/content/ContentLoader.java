@@ -1,7 +1,6 @@
 package nona.platformer.handlers.content;
 
 import java.awt.image.BufferedImage;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -44,7 +43,7 @@ public class ContentLoader {
 	@SuppressWarnings("deprecation")
 	public static int[][] loadTilemap(String path) {
 		try {
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(path));
+			ObjectInputStream in = new ObjectInputStream(ContentLoader.class.getResourceAsStream(path));
 			
 			int width = Integer.parseInt(in.readLine());
 			int height = Integer.parseInt(in.readLine());

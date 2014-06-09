@@ -1,6 +1,7 @@
 package nona.platformer.entity.character;
 
 import nona.platformer.entity.Entity;
+import nona.platformer.graphics.sprite.AnimatedSprite;
 import nona.platformer.graphics.sprite.Sprite;
 import nona.platformer.main.Game;
 import nona.platformer.main.Main;
@@ -25,7 +26,7 @@ public abstract class Character extends Entity {
 	
 	protected float jumpingSpeed;
 	
-	protected boolean falling;
+	protected boolean in_air;
 	
 	// Collision
 	protected int currTileX;
@@ -45,25 +46,41 @@ public abstract class Character extends Entity {
 	protected boolean bottomLeft;
 	protected boolean bottomRight;
 	
+	// Animation
+	protected AnimatedSprite[] actions;
+	protected boolean facingRight = true;
+
 	// Constructor
 	public Character(int x, int y, int width, int height, Tilemap tilemap, Sprite sprite) {
 		super(x, y, width, height, tilemap, sprite);
+		
+		actions = new AnimatedSprite[] {(AnimatedSprite) sprite};
+	}
+	
+	public Character(int x, int y, int width, int height, Tilemap tilemap, Sprite[] sprites) {
+		super(x, y, width, height, tilemap, sprites[0]);
+		
+		actions = (AnimatedSprite[]) sprites;
 	}
 	
 	// Updates the Character
-	public void update() {
-		super.update();
-		
+	public void update() {		
 		// Applies Gravity
-		if(falling) 
+		if(in_air) 
 			yvel += Game.GRAVITY;
 		
-		// Vertical speed is never bigger than maxVel
+		// Horizontal speed is never bigger than maxVel
 		if(xvel > maxVel)
 			xvel = maxVel;
 		
-		// Checks collisions with Tiles
+		if(xvel >= 0)
+			facingRight = true;
+		else
+			facingRight = false;
+		
 		checkTilemapCollision();
+		
+		sprite.update();
 	}
 	
 	public void render() {
@@ -112,16 +129,16 @@ public abstract class Character extends Entity {
 			if(bottomLeft || bottomRight) { // If one of the bottom corners would be in a solid Tile
 				yvel = 0; // Stops the Character
 				yTemp = currTileY * Main.TILESIZE; // Sets the Character's position to the current Tile
-				falling = false; // If the player's bottom side collides with something, he's obviously not falling anymore
+				in_air = false; // If the player's bottom side collides with something, he's obviously not in the air anymore
 			} else // If none of the bottom corners would have collided
 				yTemp += yvel; // Moves the Character
 		}
 		
 		// Sets falling to true if the Character isn't falling but none of its bottom corners collide with anything
-		if(!falling) {
-			calculateCorners(xscreen, yscreen);
+		if(!in_air) {
+			calculateCorners(xscreen, yscreen + 1);
 			if(!bottomLeft && !bottomRight) {
-				falling = true;
+				in_air = true;
 			}
 		}
 			
@@ -167,6 +184,11 @@ public abstract class Character extends Entity {
 	// Accelerates the player in y-direction
 	public void accelerateY(float acceleration) {
 		yvel += acceleration;
+	}
+	
+	protected void setAction(int action) {
+		sprite = actions[action];
+		((AnimatedSprite) sprite).reset();
 	}
 	
 }

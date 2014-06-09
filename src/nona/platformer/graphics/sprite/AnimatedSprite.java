@@ -39,7 +39,7 @@ public class AnimatedSprite extends Sprite {
 		}
 	}
 	
-	public AnimatedSprite(Sprite[] sprites, int width, int height, float interval) {
+	public AnimatedSprite(Sprite[] sprites, int width, float interval) {
 		super(sprites[0].pixels, width);
 		
 		this.interval = interval;
@@ -62,6 +62,19 @@ public class AnimatedSprite extends Sprite {
 	// Renders the current image
 	public void render(int x, int y, Bitmap bitmap) {
 		images[currentIndex].render(x, y, bitmap);
+	}
+	
+	// Returns an AnimatedSprite in which all the images are flipped horizontally
+//	public AnimatedSprite getFlipped() {
+//		Sprite[] sprites = new Sprite[images.length];
+//		for(int i = 0; i < sprites.length; i++)
+//			sprites[i] = images[i].getFlipped();
+//		return new AnimatedSprite(sprites, width, interval);
+//	}
+	
+	// Resets the index
+	public void reset() {
+		currentIndex = 0;
 	}
 	
 }
