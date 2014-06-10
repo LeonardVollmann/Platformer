@@ -2,51 +2,37 @@ package nona.platformer.entity;
 
 import nona.platformer.graphics.Bitmap;
 import nona.platformer.graphics.sprite.Sprite;
-import nona.platformer.tile.Tilemap;
-
-/*
- * @Author Leonard Vollmann
- * 
- * This is the superclass for all Entities (Who would've guessed that?)
- */
+import nona.platformer.level.Level;
 
 public abstract class Entity {
 	
-	// Global position: Position on screen
 	protected int xscreen;
 	protected int yscreen;
 	
-	// Position on map, also pixel-precise
 	protected int xmap;
 	protected int ymap;
 	
-	// Width, height of collision reactangle
 	protected int width;
 	protected int height;
 	
-	// Tilemap, may be replaced with protected Level level in the future
-	protected Tilemap tilemap;
+	protected Level level;
 	
-	// The image
 	protected Sprite sprite;
 	
-	public Entity(int x, int y, int width, int height, Tilemap tilemap, Sprite sprite) {
+	public Entity(int x, int y, int width, int height, Sprite sprite) {
 		this.xmap = x;
 		this.xmap = y;
+		this.xscreen = x;
+		this.yscreen = y;
 		this.width = width;
 		this.height = height;
-		this.tilemap = tilemap;
 		this.sprite = sprite;
-		this.xscreen = x + tilemap.getXOffset();
-		this.yscreen = y + tilemap.getYOffset();
 	}
 	
-	// Updates sprite and recalculates map-coordinates
 	public void update() {
 		sprite.update();
 	}
 	
-	// Renders 
 	public void render(Bitmap target) {
 		sprite.render(xscreen, yscreen, target);
 	}
@@ -75,9 +61,13 @@ public abstract class Entity {
 		return height;
 	}
 	
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	
 	protected void calculateMapCoordinates() {
-		xmap = xscreen - tilemap.getXOffset();
-		ymap = yscreen - tilemap.getYOffset();
+		xmap = xscreen - level.getTilemapOffsetX();
+		ymap = yscreen - level.getTilemapOffsetY();
 	}
 	
 }

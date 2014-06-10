@@ -1,13 +1,5 @@
 package nona.platformer.graphics;
 
-
-/*
- * @Author Leonard Vollmann
- * 
- * Just like a Sprite, the Bitmap is just an image, on which the Sprites are drawn.
- * The Bitmap itself is drawn directly to the Screen
- */
-
 public class Bitmap {
 
 	private int[] pixels;
@@ -18,25 +10,27 @@ public class Bitmap {
 		this.width = width;
 	}
 	
-	// Renders the Bitmap to a 1D-Array of pixels
+	public Bitmap(int width, int height) {
+		this.pixels = new int[width * height];
+		this.width = width;
+	}
+	
 	public void render(int x, int y, int[] targetPixels, int targetPixelsWidth) {
 		for(int yy = y; yy < y + pixels.length / width; yy++) {
-			if(yy >= targetPixels.length / targetPixelsWidth || yy < 0) continue; // Prevents Arrayindexoutofboundsexceptions
+			if(yy >= targetPixels.length / targetPixelsWidth || yy < 0) continue;
 			for(int xx = x; xx < x + width; xx++) {
-				if(xx >= targetPixelsWidth || xx < 0) continue; // Prevents Arrayindexoutofboundsexceptions
+				if(xx >= targetPixelsWidth || xx < 0) continue;
 				targetPixels[xx + yy * targetPixelsWidth] = pixels[(xx - x) + (yy - y) * width];
 			}
 		}
 	}
 	
-	// Sets entire bitmap to one color
 	public void setColor(int c) {
 		for(int i = 0; i < pixels.length; i++) {
 			pixels[i] = c;
 		}
 	}
 	
-	// Returns pixels for Bitmaps to be drawn onto other Bitmaps
 	public int[] getPixels() {
 		return pixels;
 	}

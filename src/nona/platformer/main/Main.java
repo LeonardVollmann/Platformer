@@ -14,16 +14,9 @@ import javax.swing.JFrame;
 
 import nona.platformer.handlers.Keys;
 
-/*
- * @Author Leonard Vollmann
- * 
- * Main class: contains main method, main loop, etc.
- */
-
 @SuppressWarnings("serial")
 public class Main extends Canvas implements Runnable, KeyListener {
 	
-	// Constants
 	public static final int WIDTH = 360;
 	public static final int HEIGHT = 240;
 	public static final int SCALE = 2;
@@ -31,19 +24,15 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	public static final int FPS = 30;
 	public static final int TILESIZE = 16;
 	
-	// Main loop
 	private Thread thread;
 	
-	// Drawing
 	private static BufferedImage image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 	private static int[] raster = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
 	private BufferStrategy bs;
 	private Graphics2D g;
 	
-	// Frame
 	private JFrame frame;
 	
-	// Game
 	private Game game = new Game();
 	
 	public Main() {
@@ -52,15 +41,12 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		setFocusable(true);
 		requestFocus();
 		
-		// Add KeyListener
 		addKeyListener(this);
 		
-		// Set size
 		setPreferredSize(SIZE);
 		setMaximumSize(SIZE);
 		setMinimumSize(SIZE);
 		
-		// Initialize frame
 		frame = new JFrame("Platformer");
 		frame.setLayout(new BorderLayout());
 		frame.setResizable(false);
@@ -70,7 +56,6 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		frame.pack();
 		frame.setVisible(true);				
 		
-		// Initialize thread
 		thread = new Thread(this);
 		thread.start();
 	}
@@ -85,7 +70,6 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		int frames = 0;
 //		boolean shouldrender = false;
 		
-		// Main loop
 		while (true) {
 			now = System.nanoTime();
 			
@@ -115,12 +99,10 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		}
 	}
 	
-	// Updates the game
 	public void update() {
 		game.update();
 	}
 	
-	// Handles all the rendering
 	public void render() {
 		bs = getBufferStrategy();
 		if (bs == null) {
@@ -130,15 +112,12 @@ public class Main extends Canvas implements Runnable, KeyListener {
 		
 		clearScreen();
 						
-		//Render Game
 		game.render(raster);
 		
-		// Draw image
 		g = (Graphics2D) bs.getDrawGraphics();
 		g.drawImage(image, 0, 0, WIDTH * SCALE, HEIGHT * SCALE, null);
 		g.dispose();
 				
-		// Swap buffers
 		bs.show();
 	}
 	

@@ -3,19 +3,10 @@ package nona.platformer.graphics.sprite;
 import nona.platformer.graphics.Bitmap;
 import nona.platformer.main.Main;
 
-/*
- * @Author Leonard Vollmann
- * 
- * A Sprite that is animated using multiple images
- * Extending Sprite is necessary. If I made this 'independent', I would have to create seperate classes for animated and unanimated Tiles, Entities, etc.
- */
-
 public class AnimatedSprite extends Sprite {
 	
-	// List of images to iterate through
 	private Sprite[] images;
 	
-	// Animation
 	private int counter = 0;
 	private float interval;
 	private int currentIndex = 0;
@@ -50,7 +41,6 @@ public class AnimatedSprite extends Sprite {
 	public void update() {
 		counter++;
 		
-		// If the time passed is greater than the interval, move on to the next picture in the list
 		if(counter / (float) Main.FPS >= interval) {
 			counter = 0;
 			
@@ -64,15 +54,13 @@ public class AnimatedSprite extends Sprite {
 		images[currentIndex].render(x, y, bitmap);
 	}
 	
-	// Returns an AnimatedSprite in which all the images are flipped horizontally
-//	public AnimatedSprite getFlipped() {
-//		Sprite[] sprites = new Sprite[images.length];
-//		for(int i = 0; i < sprites.length; i++)
-//			sprites[i] = images[i].getFlipped();
-//		return new AnimatedSprite(sprites, width, interval);
-//	}
+	public AnimatedSprite getFlipped() {
+		Sprite[] sprites = new Sprite[images.length];
+		for(int i = 0; i < sprites.length; i++)
+			sprites[i] = images[i].getFlipped();
+		return new AnimatedSprite(sprites, width, interval);
+	}
 	
-	// Resets the index
 	public void reset() {
 		currentIndex = 0;
 	}

@@ -2,21 +2,12 @@ package nona.platformer.handlers;
 
 import java.awt.event.KeyEvent;
 
-/*
- * @Author Leonard Vollmann
- * 
- * Handles the Keys
- */
-
 public class Keys {
 
-	// Number of keys
 	public static final int NUM_KEYS = 12;
 	
-	// Boolean array that contains values for whether or not a key is pressed
 	public static boolean[] keyStates = new boolean[NUM_KEYS];
 	
-	// The Key indices
 	public static final int W = 0;
 	public static final int A = 1;
 	public static final int S = 2;
@@ -112,12 +103,10 @@ public class Keys {
 		}
 	}
 	
-	// Returns true if a key is pressed at the moment
 	public static boolean isKeyPressed(int index) {
 		return keyStates[index];
 	}
 	
-	// Returns true if a key is pressed at the moment. Sets its value to false afterwards to ensure a keyhit is only recognized once
 	public static boolean isKeyHit(int index) {
 		if(isKeyPressed(index)) {
 			keyStates[index] = false;

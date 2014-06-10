@@ -25,12 +25,10 @@ public class ContentLoader {
 		return null;
 	}
 	
-	// Returns an array of tiles that are loaded from an image
 	public static Sprite[][] loadTileSet(String path) {
 		BufferedImage image = loadImage(path);
 		Sprite[][] tiles = new Sprite[image.getHeight() / Main.TILESIZE][image.getWidth() / Main.TILESIZE];
 		
-		// Splits the image
 		for(int y = 0; y < image.getHeight() / Main.TILESIZE; y++) {
 			for(int x = 0; x < image.getWidth() / Main.TILESIZE; x++) {
 				tiles[y][x] = new Sprite(image.getSubimage(x * Main.TILESIZE, y * Main.TILESIZE, Main.TILESIZE, Main.TILESIZE));

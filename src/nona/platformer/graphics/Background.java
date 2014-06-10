@@ -1,11 +1,5 @@
 package nona.platformer.graphics;
 
-/*
- * @Author Leonard Vollmann
- * 
- * The Background.
- */
-
 public class Background {
 	
 	private Bitmap image;
@@ -26,7 +20,6 @@ public class Background {
 		image.render(x, y, targetPixels, targetPixelWidth);
 	}
 	
-	// Moves the Background
 	public void setPosition(int x, int y) {
 		this.x += (this.x - x) * tween;
 		this.y += (this.y - y) * tween;
