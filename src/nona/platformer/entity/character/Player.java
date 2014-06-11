@@ -24,7 +24,7 @@ public class Player extends Character {
 		
 		handleKeys();
 		
-		level.getTilemap().setPosition(-xscreen + Main.WIDTH / 2, -yscreen + Main.HEIGHT / 2);
+		level.setPosition(-xscreen + Main.WIDTH / 2, -yscreen + Main.HEIGHT / 2);
 	}
 	
 	private void handleKeys() {

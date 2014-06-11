@@ -1,6 +1,7 @@
 package nona.platformer.tile;
 
 import nona.platformer.graphics.sprite.Sprite;
+import nona.platformer.level.Level;
 
 
 public abstract class Tile {
@@ -18,8 +19,8 @@ public abstract class Tile {
 		sprite.update();
 	}
 	
-	public void render(int x, int y, Tilemap tilemap) {
-		sprite.render(x, y, tilemap.getBitmap());
+	public void render(int x, int y, Level level) {
+		sprite.render(x, y, level.getBitmap());
 	}
 	
 	public Tile setPosition(int x, int y) {

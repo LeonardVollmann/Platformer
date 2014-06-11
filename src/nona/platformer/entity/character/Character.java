@@ -134,10 +134,10 @@ public abstract class Character extends Entity {
 		int top = y / Main.TILESIZE;
 		int bottom = (y + height - 1) / Main.TILESIZE;
 		
-		int tl = level.getTilemap().getType(left, top);
-		int tr = level.getTilemap().getType(right, top);
-		int bl = level.getTilemap().getType(left, bottom);
-		int br = level.getTilemap().getType(right, bottom);
+		int tl = level.getType(left, top);
+		int tr = level.getType(right, top);
+		int bl = level.getType(left, bottom);
+		int br = level.getType(right, bottom);
 		
 		topLeft = tl == Tile.TILE_FULLCOL;
 		topRight = tr == Tile.TILE_FULLCOL;

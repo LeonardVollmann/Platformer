@@ -66,8 +66,8 @@ public abstract class Entity {
 	}
 	
 	protected void calculateMapCoordinates() {
-		xmap = xscreen - level.getTilemapOffsetX();
-		ymap = yscreen - level.getTilemapOffsetY();
+		xmap = xscreen - level.getXOffset();
+		ymap = yscreen - level.getYOffset();
 	}
 	
 }
