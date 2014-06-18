@@ -1,5 +1,6 @@
 package nona.platformer.handlers.content;
 
+import nona.platformer.entity.character.player.Player;
 import nona.platformer.graphics.sprite.AnimatedSprite;
 import nona.platformer.graphics.sprite.Sprite;
 import nona.platformer.main.Main;
@@ -18,6 +19,8 @@ public class Content {
 	public static AirTile Tile_Air = new AirTile();
 	public static FullCollisionTile Tile_Solid = new FullCollisionTile(Tileset[0][1]);
 	public static VisualTile Tile_Visual = new VisualTile(Tileset[0][2]);
+	
+	public static Player Player = new Player(Main.TILESIZE, Main.TILESIZE * 4, Main.TILESIZE, Main.TILESIZE, Content.Sprite_Player_Idle, Content.Sprite_Player_Walking, Content.Sprite_Player_InAir, Content.Sprite_Player_InAir);
 		
 //	public static Tilemap LoadedMap = new Tilemap("/maps/map.txt");
 	public static int[][] Map = new int[][] {{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},

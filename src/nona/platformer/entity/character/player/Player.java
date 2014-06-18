@@ -1,5 +1,6 @@
-package nona.platformer.entity.character;
+package nona.platformer.entity.character.player;
 
+import nona.platformer.entity.character.Character;
 import nona.platformer.graphics.sprite.AnimatedSprite;
 import nona.platformer.handlers.Keys;
 import nona.platformer.main.Main;

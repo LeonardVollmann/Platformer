@@ -21,11 +21,9 @@ public abstract class Character extends Entity {
 	
 	protected boolean in_air;
 	
-
 	protected int currTileX;
 	protected int currTileY;
 	
-
 	protected int xDest;
 	protected int yDest;
 	
@@ -53,8 +51,7 @@ public abstract class Character extends Entity {
 	}
 	
 	public void update() {		
-		if(in_air) 
-			yvel += Game.GRAVITY;
+		accelerateY(Game.GRAVITY);
 		
 		if(xvel > maxVel)
 			xvel = maxVel;
@@ -77,8 +74,8 @@ public abstract class Character extends Entity {
 		currTileX = Math.round((float) xscreen / Main.TILESIZE);
 		currTileY = Math.round((float) yscreen / Main.TILESIZE);
 		
-		xDest = (int) (xscreen + xvel);
-		yDest = (int) (yscreen + yvel);
+		xDest = Math.round((float) xscreen + xvel);
+		yDest = Math.round((float) yscreen + yvel);
 
 		xTemp = xscreen;
 		yTemp = yscreen;
@@ -115,7 +112,7 @@ public abstract class Character extends Entity {
 		}
 		
 		if(!in_air) {
-			calculateCorners(xscreen, yscreen + 2);
+			calculateCorners(xTemp, yTemp + 1);
 			if(!bottomLeft && !bottomRight)
 				in_air = true;
 		}
