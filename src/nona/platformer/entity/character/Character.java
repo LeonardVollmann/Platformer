@@ -71,8 +71,8 @@ public abstract class Character extends Entity {
 	}
 	
 	protected void checkTilemapCollision() {
-		currTileX = Math.round((float) xscreen / Main.TILESIZE);
-		currTileY = Math.round((float) yscreen / Main.TILESIZE);
+		currTileX = Math.round((float) (xscreen - width / 2) / Main.TILESIZE);
+		currTileY = Math.round((float) (yscreen - height / 2) / Main.TILESIZE);
 		
 		xDest = Math.round((float) xscreen + xvel);
 		yDest = Math.round((float) yscreen + yvel);
@@ -84,13 +84,13 @@ public abstract class Character extends Entity {
 		if(xvel < 0) {
 			if(topLeft || bottomLeft) {
 				xvel = 0;
-				xTemp = currTileX * Main.TILESIZE;
+				xTemp = currTileX * Main.TILESIZE + width / 2;
 			} else
 				xTemp += xvel;
 		} else if(xvel > 0) {
 			if(topRight || bottomRight) {
 				xvel = 0;
-				xTemp = currTileX * Main.TILESIZE;
+				xTemp = currTileX * Main.TILESIZE + width / 2;
 			} else
 				xTemp += xvel;
 		}
@@ -99,13 +99,13 @@ public abstract class Character extends Entity {
 		if(yvel < 0) {
 			if(topLeft || topRight) {
 				yvel = 0;
-				yTemp = currTileY * Main.TILESIZE;
+				yTemp = currTileY * Main.TILESIZE + height / 2;
 			} else
 				yTemp += yvel;
 		} else if(yvel > 0) {
 			if(bottomLeft || bottomRight) {
 				yvel = 0;
-				yTemp = currTileY * Main.TILESIZE;
+				yTemp = currTileY * Main.TILESIZE + height / 2;
 				in_air = false;
 			} else
 				yTemp += yvel;
@@ -126,10 +126,10 @@ public abstract class Character extends Entity {
 	}
 	
 	protected void calculateCorners(int x, int y) {
-		int left = x / Main.TILESIZE;
-		int right = (x + width - 1) / Main.TILESIZE;
-		int top = y / Main.TILESIZE;
-		int bottom = (y + height - 1) / Main.TILESIZE;
+		int left = (x - width / 2) / Main.TILESIZE;
+		int right = ((x + width / 2) - 1) / Main.TILESIZE;
+		int top = (y - height / 2) / Main.TILESIZE;
+		int bottom = ((y + height / 2) - 1) / Main.TILESIZE;
 		
 		int tl = level.getType(left, top);
 		int tr = level.getType(right, top);

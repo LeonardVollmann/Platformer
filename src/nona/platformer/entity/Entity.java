@@ -34,7 +34,7 @@ public abstract class Entity {
 	}
 	
 	public void render(Bitmap target) {
-		sprite.render(xscreen, yscreen, target);
+		sprite.render(xscreen - width / 2, yscreen - height / 2, target);
 	}
 	
 	public int getMapX() {
