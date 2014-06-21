@@ -16,7 +16,7 @@ public class Level {
 	
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
 		
-	private float tween = 1f;
+	private float tween = 0.2f;
 	
 	private int width;
 	private int height;

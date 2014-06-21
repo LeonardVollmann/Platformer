@@ -1,7 +1,7 @@
 package nona.platformer.entity;
 
 import nona.platformer.graphics.Bitmap;
-import nona.platformer.graphics.sprite.Sprite;
+import nona.platformer.graphics.Sprite;
 import nona.platformer.level.Level;
 
 public abstract class Entity {

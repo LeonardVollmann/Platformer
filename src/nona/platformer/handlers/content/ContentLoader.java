@@ -7,7 +7,7 @@ import java.io.ObjectInputStream;
 
 import javax.imageio.ImageIO;
 
-import nona.platformer.graphics.sprite.Sprite;
+import nona.platformer.graphics.Sprite;
 import nona.platformer.main.Main;
 import nona.platformer.tile.Tile;
 
@@ -15,14 +15,22 @@ public class ContentLoader {
 
 	public static BufferedImage loadImage(String path) {		
 		try {
-			BufferedImage image = ImageIO.read(ContentLoader.class.getResourceAsStream(path));
-			
-			return image;
+			return ImageIO.read(ContentLoader.class.getResourceAsStream(path));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 		return null;
+	}
+	
+	public static BufferedImage[] loadSpriteSheet(String path, int width) {
+		BufferedImage image = loadImage(path);
+		BufferedImage[] images = new BufferedImage[image.getWidth() / width];
+		
+		for(int i = 0; i < images.length; i++) 
+			images[i] = image.getSubimage(i * width, 0, width, image.getHeight());
+		
+		return images;
 	}
 	
 	public static Sprite[][] loadTileSet(String path) {

@@ -1,6 +1,6 @@
 package nona.platformer.tile;
 
-import nona.platformer.graphics.sprite.Sprite;
+import nona.platformer.graphics.Sprite;
 
 public class FullCollisionTile extends Tile {
 

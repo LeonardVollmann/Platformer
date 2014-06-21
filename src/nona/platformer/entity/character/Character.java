@@ -1,7 +1,7 @@
 package nona.platformer.entity.character;
 
 import nona.platformer.entity.Entity;
-import nona.platformer.graphics.sprite.AnimatedSprite;
+import nona.platformer.graphics.Sprite;
 import nona.platformer.level.Level;
 import nona.platformer.main.Game;
 import nona.platformer.main.Main;
@@ -38,12 +38,12 @@ public abstract class Character extends Entity {
 	protected boolean bottomRight;
 	
 
-	protected AnimatedSprite action_idle;
-	protected AnimatedSprite action_walking;
+	protected Sprite action_idle;
+	protected Sprite action_walking;
 	protected boolean facingRight = true;
 
 
-	public Character(int x, int y, int width, int height, AnimatedSprite action_idle, AnimatedSprite action_walking) {
+	public Character(int x, int y, int width, int height, Sprite action_idle, Sprite action_walking) {
 		super(x, y, width, height, action_idle);
 		
 		this.action_idle = action_idle;
