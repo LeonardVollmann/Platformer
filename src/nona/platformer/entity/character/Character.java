@@ -20,6 +20,7 @@ public abstract class Character extends Entity {
 	protected float jumpingSpeed;
 	
 	protected boolean in_air;
+	protected boolean on_ground;
 	
 	protected int currTileX;
 	protected int currTileY;
@@ -36,18 +37,21 @@ public abstract class Character extends Entity {
 	protected boolean topRight;
 	protected boolean bottomLeft;
 	protected boolean bottomRight;
-	
 
 	protected Sprite action_idle;
 	protected Sprite action_walking;
+	protected Sprite action_jumping;
+	protected Sprite action_falling;
 	protected boolean facingRight = true;
 
 
-	public Character(int x, int y, int width, int height, Sprite action_idle, Sprite action_walking) {
+	public Character(int x, int y, int width, int height, Sprite action_idle, Sprite action_walking, Sprite action_jumping, Sprite action_falling) {
 		super(x, y, width, height, action_idle);
 		
 		this.action_idle = action_idle;
 		this.action_walking = action_walking;
+		this.action_jumping = action_jumping;
+		this.action_falling = action_falling;
 	}
 	
 	public void update() {		
@@ -107,14 +111,17 @@ public abstract class Character extends Entity {
 				yvel = 0;
 				yTemp = currTileY * Main.TILESIZE + height / 2;
 				in_air = false;
+				on_ground = true;
 			} else
 				yTemp += yvel;
 		}
 		
 		if(!in_air) {
 			calculateCorners(xTemp, yTemp + 1);
-			if(!bottomLeft && !bottomRight)
+			if(!bottomLeft && !bottomRight) {
+				on_ground = false;
 				in_air = true;
+			}
 		}
 		
 		updateActions();
@@ -155,10 +162,15 @@ public abstract class Character extends Entity {
 	}
 	
 	protected void updateActions() {
-		if(xvel == 0 && yvel == 0)
+		if(on_ground && xvel == 0 && yvel == 0)
 			sprite = action_idle;
-		else if(xvel != 0 && yvel == 0)
+		else if(on_ground && xvel != 0 && yvel == 0)
 			sprite = action_walking;
+		else if(in_air && yvel < 0)
+			sprite = action_jumping;
+		else if(in_air && yvel > 0)
+			sprite = action_falling;
+
 	}
 	
 	public void setLevel(Level level) {

@@ -7,15 +7,9 @@ import nona.platformer.main.Main;
 
 public class Player extends Character {
 	
-	protected Sprite action_jumping;
-	protected Sprite action_falling;
-	
 	public Player(int x, int y, int width, int height, Sprite action_idle, Sprite action_walking, Sprite action_jumping, Sprite action_falling) {
-		super(x, y, width, height, action_idle, action_walking);
-				
-		this.action_jumping = action_jumping;
-		this.action_falling = action_falling;
-		
+		super(x, y, width, height, action_idle, action_walking, action_jumping, action_falling);
+						
 		jumpingSpeed = -5f;
 		maxVel = 5;
 	}
@@ -34,17 +28,6 @@ public class Player extends Character {
 		else xvel = 0;
 
 		if(Keys.isKeyHit(Keys.W) || Keys.isKeyHit(Keys.UP)) jump();
-	}
-	
-	protected void updateActions() {
-		super.updateActions();
-			
-		if(yvel < 0 && in_air)
-			sprite = action_jumping;
-		else if(yvel > 0 && in_air)
-			sprite = action_falling;
-	
-		sprite.reset();
 	}
 	
 	public void render() {

@@ -23,9 +23,10 @@ public class ContentLoader {
 		return null;
 	}
 	
-	public static BufferedImage[] loadSpriteSheet(String path, int width) {
+	public static BufferedImage[] loadSpriteSheet(String path, int numImages) {
 		BufferedImage image = loadImage(path);
-		BufferedImage[] images = new BufferedImage[image.getWidth() / width];
+		BufferedImage[] images = new BufferedImage[numImages];
+		int width = image.getWidth() / numImages;
 		
 		for(int i = 0; i < images.length; i++) 
 			images[i] = image.getSubimage(i * width, 0, width, image.getHeight());
@@ -47,7 +48,7 @@ public class ContentLoader {
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static int[][] loadTilemap(String path) {
+	public static int[][] loadMap(String path) {
 		try {
 			ObjectInputStream in = new ObjectInputStream(ContentLoader.class.getResourceAsStream(path));
 			
