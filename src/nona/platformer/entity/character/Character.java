@@ -42,6 +42,9 @@ public abstract class Character extends Entity {
 	protected Sprite action_walking;
 	protected Sprite action_jumping;
 	protected Sprite action_falling;
+	protected Sprite action_walking_flipped;
+	protected Sprite action_jumping_flipped;
+	protected Sprite action_falling_flipped;
 	protected boolean facingRight = true;
 
 
@@ -52,6 +55,9 @@ public abstract class Character extends Entity {
 		this.action_walking = action_walking;
 		this.action_jumping = action_jumping;
 		this.action_falling = action_falling;
+		this.action_walking_flipped = this.action_walking.getFlipped();
+		this.action_jumping_flipped = this.action_jumping.getFlipped();
+		this.action_falling_flipped = this.action_falling.getFlipped();
 	}
 	
 	public void update() {		
@@ -164,12 +170,20 @@ public abstract class Character extends Entity {
 	protected void updateActions() {
 		if(on_ground && xvel == 0 && yvel == 0)
 			sprite = action_idle;
-		else if(on_ground && xvel != 0 && yvel == 0)
+		else if(on_ground && xvel > 0 && yvel == 0)
 			sprite = action_walking;
-		else if(in_air && yvel < 0)
+		else if(on_ground && xvel < 0 && yvel == 0)
+			sprite = action_walking_flipped;
+		else if(in_air && yvel < 0 && xvel > 0)
 			sprite = action_jumping;
-		else if(in_air && yvel > 0)
+		else if(in_air && yvel < 0 && xvel < 0)
+			sprite = action_jumping_flipped;
+		else if(in_air && yvel > 0 && xvel > 0)
 			sprite = action_falling;
+		else if(in_air && yvel < 0 && xvel < 0)
+			sprite = action_falling_flipped;
+		else if(in_air && xvel == 0)
+			sprite = action_idle;
 
 	}
 	

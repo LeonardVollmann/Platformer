@@ -19,7 +19,7 @@ public class Main extends Canvas implements Runnable, KeyListener {
 	
 	public static final int WIDTH = 360;
 	public static final int HEIGHT = 240;
-	public static final int SCALE = 2;
+	public static final int SCALE = 3;
 	public static final Dimension SIZE = new Dimension(WIDTH * SCALE, HEIGHT * SCALE);
 	public static final int FPS = 30;
 	public static final int TILESIZE = 16;

@@ -42,6 +42,13 @@ public class Sprite {
 		animated = false;
 	}
 	
+	public Sprite(int[][] pixels, int width, float interval, boolean animated) {
+		this.pixels = pixels;
+		this.width = width;
+		this.interval = interval;
+		this.animated = animated;
+	}
+	
 	public Sprite(int width, int height, int colour) {
 		this.pixels = new int[1][width * height];
 		this.width = width;
@@ -85,13 +92,24 @@ public class Sprite {
 			}
 		}
 	}
-	
+
 	public void reset() {
 		currentImage = 0;
 	}
 	
 	public Sprite getFlipped() {
-		return this;
-	}
+		int[][] tempPixels = new int[pixels.length][pixels[0].length];
+		
+		System.out.println("----------");
+		for(int i = 0; i < pixels.length; i++) {
+			for(int j = 0; j < pixels[0].length; j += width) {
+				for(int k = 0; k < width; k++) {
+					tempPixels[i][j + k] = pixels[i][j + width - k - 1];
+				}
+			}
+		}
+		
+		return new Sprite(tempPixels, this.width, this.interval, this.animated);
+ 	}
 
 }
