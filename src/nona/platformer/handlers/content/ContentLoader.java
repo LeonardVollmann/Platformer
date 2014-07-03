@@ -1,5 +1,6 @@
 package nona.platformer.handlers.content;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -76,6 +77,19 @@ public class ContentLoader {
 		}
 		
 		return null;
+	}
+	
+	public static int[][] loadMap(BufferedImage image) {
+		int[][] map = new int[image.getHeight()][image.getWidth()];
+		
+		for(int y = 0; y < map.length; y++) {
+			for(int x = 0; x < map[0].length; x++) {
+				Color color = new Color(image.getRGB(x, y));	
+				map[y][x] = color.getBlue();
+			}
+		}
+		
+		return map;
 	}
 	
 //	public static Tile[][] convertMapToTileArray(int[][] map) {

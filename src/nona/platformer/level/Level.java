@@ -17,8 +17,7 @@ public class Level {
 	private Player player;
 	
 	private ArrayList<Entity> entities = new ArrayList<Entity>();
-		
-	private float tween = 0.15f;
+	float tween = 0.1f;
 	
 	private int width;
 	private int height;
@@ -133,7 +132,7 @@ public class Level {
 		this.height = map.length * Main.TILESIZE;
 
 		
-		this.bitmap = new Bitmap(new int[width * height * Main.TILESIZE * Main.TILESIZE], width);
+		this.bitmap = new Bitmap(new int[width * height], width);
 	}
 	
 	public Bitmap getBitmap() {
