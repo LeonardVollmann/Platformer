@@ -105,6 +105,7 @@ public class Sprite {
 			for(int j = 0; j < pixels[0].length; j += width) {
 				for(int k = 0; k < width; k++) {
 					tempPixels[i][j + k] = pixels[i][j + width - k - 1];
+					
 				}
 			}
 		}

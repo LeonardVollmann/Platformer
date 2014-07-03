@@ -9,7 +9,6 @@ import nona.platformer.tile.Tile;
 
 public abstract class Character extends Entity {
 	
-
 	protected float xvel;
 	protected float yvel;
 	
@@ -28,36 +27,19 @@ public abstract class Character extends Entity {
 	protected int xDest;
 	protected int yDest;
 	
-
 	protected int xTemp;
 	protected int yTemp;
-	
 
 	protected boolean topLeft;
 	protected boolean topRight;
 	protected boolean bottomLeft;
 	protected boolean bottomRight;
 
-	protected Sprite action_idle;
-	protected Sprite action_walking;
-	protected Sprite action_jumping;
-	protected Sprite action_falling;
-	protected Sprite action_walking_flipped;
-	protected Sprite action_jumping_flipped;
-	protected Sprite action_falling_flipped;
 	protected boolean facingRight = true;
 
 
-	public Character(int x, int y, int width, int height, Sprite action_idle, Sprite action_walking, Sprite action_jumping, Sprite action_falling) {
-		super(x, y, width, height, action_idle);
-		
-		this.action_idle = action_idle;
-		this.action_walking = action_walking;
-		this.action_jumping = action_jumping;
-		this.action_falling = action_falling;
-		this.action_walking_flipped = this.action_walking.getFlipped();
-		this.action_jumping_flipped = this.action_jumping.getFlipped();
-		this.action_falling_flipped = this.action_falling.getFlipped();
+	public Character(int x, int y, int width, int height, Sprite sprite) {
+		super(x, y, width, height, sprite);
 	}
 	
 	public void update() {		
@@ -72,7 +54,8 @@ public abstract class Character extends Entity {
 			facingRight = false;
 		
 		checkTilemapCollision();
-				
+
+		updateActions();
 		sprite.update();
 	}
 	
@@ -144,15 +127,15 @@ public abstract class Character extends Entity {
 		int top = (y - height / 2) / Main.TILESIZE;
 		int bottom = ((y + height / 2) - 1) / Main.TILESIZE;
 		
-		int tl = level.getType(left, top);
-		int tr = level.getType(right, top);
-		int bl = level.getType(left, bottom);
-		int br = level.getType(right, bottom);
+		int tl = level.getCollisionType(left, top);
+		int tr = level.getCollisionType(right, top);
+		int bl = level.getCollisionType(left, bottom);
+		int br = level.getCollisionType(right, bottom);
 		
-		topLeft = tl == Tile.TILE_FULLCOL;
-		topRight = tr == Tile.TILE_FULLCOL;
-		bottomLeft = bl == Tile.TILE_FULLCOL;
-		bottomRight = br == Tile.TILE_FULLCOL;
+		topLeft = tl == Tile.TILE_COLLISION_FULL;
+		topRight = tr == Tile.TILE_COLLISION_FULL;
+		bottomLeft = bl == Tile.TILE_COLLISION_FULL;
+		bottomRight = br == Tile.TILE_COLLISION_FULL;
 	}
 
 	public void jump() {
@@ -167,24 +150,7 @@ public abstract class Character extends Entity {
 		yvel += acceleration;
 	}
 	
-	protected void updateActions() {
-		if(on_ground && xvel == 0 && yvel == 0)
-			sprite = action_idle;
-		else if(on_ground && xvel > 0 && yvel == 0)
-			sprite = action_walking;
-		else if(on_ground && xvel < 0 && yvel == 0)
-			sprite = action_walking_flipped;
-		else if(in_air && yvel < 0 && xvel > 0)
-			sprite = action_jumping;
-		else if(in_air && yvel < 0 && xvel < 0)
-			sprite = action_jumping_flipped;
-		else if(in_air && yvel > 0 && xvel > 0)
-			sprite = action_falling;
-		else if(in_air && yvel < 0 && xvel < 0)
-			sprite = action_falling_flipped;
-		else if(in_air && xvel == 0)
-			sprite = action_idle;
-
+	protected void updateActions() {	
 	}
 	
 	public void setLevel(Level level) {

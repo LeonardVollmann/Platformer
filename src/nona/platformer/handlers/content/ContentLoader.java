@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import nona.platformer.graphics.Sprite;
 import nona.platformer.main.Main;
-import nona.platformer.tile.Tile;
 
 public class ContentLoader {
 
@@ -18,8 +17,8 @@ public class ContentLoader {
 			return ImageIO.read(ContentLoader.class.getResourceAsStream(path));
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
-		
+        }
+
 		return null;
 	}
 	
@@ -79,18 +78,20 @@ public class ContentLoader {
 		return null;
 	}
 	
-	public static Tile[][] convertMapToTileArray(int[][] map) {
-		Tile[][] tiles = new Tile[map.length][map[0].length];
-		
-		for(int y = 0; y < tiles.length; y++) {
-			for(int x = 0; x < tiles[0].length; x++) {
-				if(map[y][x] == Tile.TILE_AIR) tiles[y][x] = Content.Tile_Air.setPosition(x + 1, y + 1);
-				else if(map[y][x] == Tile.TILE_FULLCOL) tiles[y][x] = Content.Tile_Solid.setPosition(x + 1, y + 1);
-				else if(map[y][x] == Tile.TILE_VISUAL) tiles[y][x] = Content.Tile_Visual.setPosition(x + 1, y + 1);
-			}
-		}
-		
-		return tiles;
-	}
+//	public static Tile[][] convertMapToTileArray(int[][] map) {
+//		Tile[][] tiles = new Tile[map.length][map[0].length];
+//		
+//		for(int y = 0; y < tiles.length; y++) {
+//			for(int x = 0; x < tiles[0].length; x++) {
+//				if(map[y][x] == Tile.TILE_AIR) tiles[y][x] = Content.Tile_Air.setPosition(x + 1, y + 1);
+//				else if(map[y][x] == Tile.TILE_GRASS) tiles[y][x] = Content.Tile_Grass.setPosition(x + 1, y + 1);
+//				else if(map[y][x] == Tile.TILE_DIRT) tiles[y][x] = Content.Tile_Dirt.setPosition(x + 1, y + 1);
+//				else if(map[y][x] == Tile.TILE_STONE) tiles[y][x] = Content.Tile_Stone.setPosition(x + 1, y + 1);			
+//				else if(map[y][x] == Tile.TILE_VISUAL) tiles[y][x] = Content.Tile_Visual.setPosition(x + 1, y + 1);
+//			}
+//		}
+//		
+//		return tiles;
+//	}
 	
 }
