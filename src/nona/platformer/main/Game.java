@@ -3,6 +3,7 @@ package nona.platformer.main;
 import nona.platformer.graphics.Bitmap;
 import nona.platformer.handlers.content.Content;
 import nona.platformer.level.Level;
+import nona.platformer.main.gamestate.GameStateManager;
 import nona.platformer.tile.Tile;
 
 public class Game {
@@ -15,18 +16,18 @@ public class Game {
 
 	public Game() {		
 		screen = new Bitmap(new int[Main.WIDTH * Main.HEIGHT], Main.WIDTH);
-
-		level = new Level(Content.Player, Content.Map);
 		
 		Tile.init();
+		GameStateManager.init();
 	}
 
 	public void update() {
-		level.update();
+		GameStateManager.update();
 	}
 
 	public void render(int[] raster) {
-		level.render(screen);
+		GameStateManager.render(screen);
+		
 		screen.render(0, 0, raster, Main.WIDTH);
 	}
 

@@ -2,6 +2,7 @@ package nona.platformer.handlers.content;
 
 import nona.platformer.entity.character.player.Player;
 import nona.platformer.graphics.Sprite;
+import nona.platformer.level.Level;
 import nona.platformer.main.Main;
 import nona.platformer.tile.AirTile;
 import nona.platformer.tile.FullCollisionTile;
@@ -23,5 +24,7 @@ public class Content {
 	public static Player Player = new Player(Main.TILESIZE + 8, Main.TILESIZE * 4 + 8);
 	
 	public static int[][] Map = ContentLoader.loadMap(ContentLoader.loadImage("/maps/map.gif"));
+	
+	public static Level Level = new Level(Player, Map);
 	
 }
